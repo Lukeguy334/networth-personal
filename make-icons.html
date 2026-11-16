@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make NetWorth Icons</title>
+<style>
+  body{background:#0D0F14;color:#F0EDE6;font-family:system-ui,sans-serif;padding:32px;max-width:640px;margin:0 auto;}
+  h1{font-size:20px;margin-bottom:8px;}
+  p{color:#8899AA;font-size:14px;line-height:1.6;}
+  .row{display:flex;gap:24px;flex-wrap:wrap;margin-top:24px;align-items:flex-end;}
+  .item{text-align:center;}
+  .item img{display:block;margin:0 auto 8px;border-radius:22%;background:#000;}
+  a{display:inline-block;background:#00C896;color:#0D0F14;font-weight:600;text-decoration:none;padding:8px 14px;border-radius:8px;font-size:13px;}
+</style>
+</head>
+<body>
+<h1>NetWorth app icons</h1>
+<p>Open this page in Chrome on your computer. Download all three PNGs, then upload them to the repo next to index.html. You can delete this file after.</p>
+<div class="row" id="row"></div>
+
+<script>
+// Edit this SVG if you want to change the icon design.
+const SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#0D0F14"/>
+  <g transform="translate(96 96) scale(3.2)">
+    <polygon points="6,50 28,12 72,12 94,50 72,88 28,88" fill="#0A1410" stroke="#00C896" stroke-width="5" stroke-linejoin="round"/>
+    <polyline points="22,73 38,52 52,63 77,33" fill="none" stroke="#00C896" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="22" cy="73" r="5" fill="#00C896"/>
+    <circle cx="38" cy="52" r="5" fill="#00C896"/>
+    <circle cx="52" cy="63" r="5" fill="#00C896"/>
+    <circle cx="77" cy="33" r="5" fill="#00C896"/>
+    <polyline points="73,29 77,33 73,37" fill="none" stroke="#00C896" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>`;
+
+const SIZES = [180, 192, 512];
+const img = new Image();
+img.onload = () => {
+  const row = document.getElementById('row');
+  SIZES.forEach(size => {
+    const c = document.createElement('canvas');
+    c.width = size; c.height = size;
+    c.getContext('2d').drawImage(img, 0, 0, size, size);
+    const url = c.toDataURL('image/png');
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.innerHTML = `<img src="${url}" width="${Math.min(size,120)}" height="${Math.min(size,120)}"><a href="${url}" download="icon-${size}.png">icon-${size}.png</a>`;
+    row.appendChild(item);
+  });
+};
+img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(SVG);
+</script>
+</body>
+</html>
